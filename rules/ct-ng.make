@@ -70,10 +70,12 @@ $(STATEDIR)/ct-ng.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/ct-ng.compile:
-#	@$(call targetinfo)
+$(STATEDIR)/ct-ng.compile:
+	@$(call targetinfo)
 #	@$(call world/compile, CT_NG)
-#	@$(call touch)
+	cd "$(CT_NG_DIR)" && \
+		$(CT_NG_PATH) $(CT_NG_ENV) ct-ng build.$(PTXDIST_PARALLELMFLAGS_INTERN:-j%=%) $(CT_NG_MAKEVARS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
