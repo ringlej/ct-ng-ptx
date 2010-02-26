@@ -1,0 +1,20 @@
+#
+# Automatically generated make config: don't edit
+# ptxdist version: 2010.01.0-00668-g9f01e39-dirty
+#
+PTXCONF__ptxconfig_MAGIC__=y
+PTXCONF_BUILD_TOOLCHAIN=y
+PTXCONF_NO_PLATFORM=y
+PTXCONF_PROJECT=""
+PTXCONF_CONFIGFILE_VERSION="2010.01.0-git"
+PTXCONF_CT_NG=y
+PTXCONF_CT_NG_VERSION="1.6.0"
+PTXCONF_CT_NG_CONFIG="ct-ng.config"
+PTXCONF_HOST_CT_NG=y
+
+#
+# paths & directories           
+#
+PTXCONF_SYSROOT_TARGET="${PTXDIST_PLATFORMDIR}/sysroot-target"
+PTXCONF_SYSROOT_HOST="${PTXDIST_PLATFORMDIR}/sysroot-host"
+PTXCONF_SYSROOT_CROSS="${PTXDIST_PLATFORMDIR}/sysroot-cross"
