@@ -90,20 +90,6 @@ $(STATEDIR)/ct-ng.prepare:
 
 $(STATEDIR)/ct-ng.targetinstall:
 	@$(call targetinfo)
-
-	@$(call install_init,  ct-ng)
-	@$(call install_fixup, ct-ng,PACKAGE,ct-ng)
-	@$(call install_fixup, ct-ng,PRIORITY,optional)
-	@$(call install_fixup, ct-ng,VERSION,$(CT_NG_VERSION))
-	@$(call install_fixup, ct-ng,SECTION,base)
-	@$(call install_fixup, ct-ng,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, ct-ng,DEPENDS,)
-	@$(call install_fixup, ct-ng,DESCRIPTION,missing)
-
-	@$(call install_copy, ct-ng, 0, 0, 0755, $(CT_NG_DIR)/foobar, /dev/null)
-
-	@$(call install_finish, ct-ng)
-
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
