@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_HOST_CT_NG) += host-ct-ng
 #
 # Paths and names
 #
-HOST_CT_NG_VERSION	:= $(PTXCONF_HOST_CT_NG_VERSION)
+HOST_CT_NG_VERSION	:= $(call remove_quotes,$(PTXCONF_HOST_CT_NG_VERSION))
 HOST_CT_NG		:= crosstool-ng-$(HOST_CT_NG_VERSION)
 HOST_CT_NG_SUFFIX	:= tar.bz2
 HOST_CT_NG_URL	:= http://ymorin.is-a-geek.org/download/crosstool-ng/$(HOST_CT_NG).$(HOST_CT_NG_SUFFIX)

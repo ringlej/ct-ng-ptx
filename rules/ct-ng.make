@@ -98,7 +98,7 @@ $(STATEDIR)/ct-ng.clean:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-ct-ng_oldconfig ct-ng_menuconfig:
+ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/host-ct-ng.extract
 	@if test -e $(CT_NG_CONFIG); then \
 		cp $(CT_NG_CONFIG) $(CT_NG_DIR)/.config; \
 	fi
