@@ -119,8 +119,16 @@ $(STATEDIR)/ct-ng.targetinstall:
 # ----------------------------------------------------------------------------
 
 ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-ng.install
-	@if [ -e "$(CT_NG_CONFIG)" ]; then \
+	@if [ -e "$(CT_NG_CONFIG)" -a -e "$(CT_NG_DIR)/.config" ]; then \
+		if [ "$(CT_NG_CONFIG)" -nt "$(CT_NG_DIR)/.config" ]; then \
+			cp "$(CT_NG_CONFIG)" "$(CT_NG_DIR)/.config"; \
+		else \
+			cp "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; \
+		fi \
+	elif [ -e "$(CT_NG_CONFIG)" ]; then \
 		cp "$(CT_NG_CONFIG)" "$(CT_NG_DIR)/.config"; \
+	elif [ -e "$(CT_NG_DIR)/.config" ]; then \
+		cp "$(CT_NG_DIR)/.config"; \
 	fi
 	@cd "$(CT_NG_DIR)" && \
 		$(CT_NG_PATH) $(CT_NG_ENV) ct-ng $(CT_NG_MAKEVARS) $(subst ct-ng_,,$@)
