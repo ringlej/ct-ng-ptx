@@ -124,4 +124,14 @@ ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-
 		cp "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; \
 	fi
 
+ct-ng:
+	@cd $(CT_NG_DIR) && ct-ng $(filter-out $@,$(MAKECMDGOALS))
+
+# supress "no rule to make taret" errors
+ifeq ($(filter ct-ng,$(MAKECMDGOALS)),ct-ng)
+PHONY += $(MAKECMDGOALS)
+$(filter-out ct-ng,$(MAKECMDGOALS)):
+	@true
+endif
+
 # vim: syntax=make
