@@ -122,7 +122,7 @@ ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-
 	@if [ -e "$(CT_NG_CONFIG)" ]; then \
 		cp "$(CT_NG_CONFIG)" "$(CT_NG_DIR)/.config"; \
 	fi
-	cd "$(CT_NG_DIR)" && \
+	@cd "$(CT_NG_DIR)" && \
 		$(CT_NG_PATH) $(CT_NG_ENV) ct-ng $(CT_NG_MAKEVARS) $(subst ct-ng_,,$@)
 	@if cmp -s "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; then \
 		echo "ct-ng configuration unchanged"; \
