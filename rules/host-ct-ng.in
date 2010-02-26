@@ -1,0 +1,6 @@
+## SECTION=main
+
+config HOST_CT_NG
+	tristate
+	help
+	  FIXME

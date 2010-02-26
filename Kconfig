@@ -1,0 +1,40 @@
+#
+# Kconfig: Main menu structure definition
+# Copyright (C) 2005-2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+
+config _ptxconfig_MAGIC__
+	bool
+	default y
+
+config BUILD_TOOLCHAIN
+	bool
+	default y
+
+config NO_PLATFORM
+	bool
+	default y
+
+
+config PROJECT
+	string
+	prompt "Project Name        "
+	help
+	  Name of this project; each PTXdist "Project" specifies a unique
+	  configuration for an embedded Linux project.
+
+	  Usually you don't have to set this config option; change it
+	  only if you want to have some non-default name.
+
+config CONFIGFILE_VERSION
+	string
+	prompt "ptxdist version"
+	default "2010.01.0-git"
+	help
+	  Specify the PTXdist version this configuration was tested with
+	  here. This is an additional sanity check to make sure that
+	  only tested versions are built.
+
+
+source "generated/main.in"
