@@ -1,0 +1,30 @@
+## SECTION=toolchain
+
+menuconfig HOST_CT_NG
+	prompt "crosstool-ng                  "
+	bool
+	help
+	  The crosstool-ng toolchain generator.
+
+if HOST_CT_NG
+
+config HOST_CT_NG_VERSION
+	prompt "ct-ng version"
+	string
+	default "1.6.0"
+
+config HOST_CT_NG_CONFIG
+	prompt "config file"
+	string
+	default "ct-ng.config"
+	help
+	  This entry specifies the .config file used to compile
+	  barebox.
+
+config HOST_CT_NG_ARCH_STRING
+	string
+	default "arm"			if ARCH_ARM
+	default "blackfin"		if ARCH_BLACKFIN
+	default "ppc"			if ARCH_PPC
+
+endif
