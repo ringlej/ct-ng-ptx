@@ -20,6 +20,7 @@ config NO_PLATFORM
 config PROJECT
 	string
 	prompt "Project Name        "
+	default "ct-ng"
 	help
 	  Name of this project; each PTXdist "Project" specifies a unique
 	  configuration for an embedded Linux project.

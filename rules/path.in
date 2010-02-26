@@ -1,5 +1,10 @@
 ## SECTION=main
 
+config PLATFORM
+	string
+	default "arm-whatever"
+	prompt "platform"
+
 menu "paths & directories           "
 
 config SYSROOT_TARGET
