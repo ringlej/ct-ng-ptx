@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# ptxdist version: 2010.01.0-00668-g9f01e39
+# ptxdist version: 2010.01.0-00665-gc08e373
 #
 PTXCONF__ptxconfig_MAGIC__=y
 PTXCONF_BUILD_TOOLCHAIN=y
@@ -11,7 +11,7 @@ PTXCONF_CT_NG=y
 PTXCONF_CT_NG_VERSION="1.6.0"
 PTXCONF_CT_NG_CONFIG="ct-ng.config"
 PTXCONF_HOST_CT_NG=y
-PTXCONF_PLATFORM="arm-whatever"
+PTXCONF_PLATFORM="ct-ng"
 
 #
 # paths & directories           
