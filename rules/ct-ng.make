@@ -47,22 +47,48 @@ $(STATEDIR)/ct-ng.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
+ct-ng_update_config = \
+	if [ "$(CT_NG_CONFIG)" -nt "$(CT_NG_DIR)/.config" ]; then \
+		if [ -e "$(CT_NG_CONFIG)" ]; then \
+			install -m 644 $(CT_NG_CONFIG) $(CT_NG_DIR)/.config; \
+		fi \
+	elif [ "$(CT_NG_DIR)/.config" -nt "$(CT_NG_CONFIG)" ]; then \
+		if [ -e "$(CT_NG_DIR)/.config" ]; then \
+			install -m 644 $(CT_NG_DIR)/.config $(CT_NG_CONFIG); \
+			echo; \
+			echo "**********************************************"; \
+			echo "**** ct-ng.config file was updated        ****"; \
+			echo "**** Please verify and tweak config with: ****"; \
+			echo "****     'ptxdist menuconfig ct-ng'       ****"; \
+			echo "**********************************************"; \
+			echo; \
+			echo; \
+		fi \
+	fi
+
 ifdef PTXCONF_CT_NG
 $(CT_NG_CONFIG):
 	@echo
-	@echo "*****************************************************************************"
-	@echo "**** Please generate a ct-ng config with 'ptxdist menuconfig ct-ng' ****"
-	@echo "*****************************************************************************"
+	@echo "***********************************************"
+	@echo "**** Please generate a ct-ng.config:       ****"
+	@echo "**** choose from a list of samples from:   ****"
+	@echo "****     'ptxdist make ct-ng list-samples' ****"
+	@echo "**** and select sample with:               ****"
+	@echo "****     'ptxdist make ct-ng <sample>'     ****"
+	@echo "**** then edit config with:                ****"
+	@echo "****     'ptxdist menuconfig ct-ng'        ****"
+	@echo "***********************************************"
 	@echo
 	@echo
 	@exit 1
 endif
 
-$(STATEDIR)/ct-ng.prepare:
+$(STATEDIR)/ct-ng.prepare: $(CT_NG_CONFIG)
 	@$(call targetinfo)
+	@$(call ct-ng_update_config)
 
 	@echo "Using ct-ng config file: $(CT_NG_CONFIG)"
-	@install -m 644 $(CT_NG_CONFIG) $(CT_NG_DIR)/.config
+#	@install -m 644 $(CT_NG_CONFIG) $(CT_NG_DIR)/.config
 
 	@$(call touch)
 
@@ -107,17 +133,7 @@ $(STATEDIR)/ct-ng.targetinstall:
 # ----------------------------------------------------------------------------
 
 ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-ng.install
-	@if [ -e "$(CT_NG_CONFIG)" -a -e "$(CT_NG_DIR)/.config" ]; then \
-		if [ "$(CT_NG_CONFIG)" -nt "$(CT_NG_DIR)/.config" ]; then \
-			cp "$(CT_NG_CONFIG)" "$(CT_NG_DIR)/.config"; \
-		else \
-			cp "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; \
-		fi \
-	elif [ -e "$(CT_NG_CONFIG)" ]; then \
-		cp "$(CT_NG_CONFIG)" "$(CT_NG_DIR)/.config"; \
-	elif [ -e "$(CT_NG_DIR)/.config" ]; then \
-		cp "$(CT_NG_DIR)/.config"; \
-	fi
+	@$(call ct-ng_update_config) > /dev/null
 	@cd "$(CT_NG_DIR)" && \
 		$(CT_NG_PATH) $(CT_NG_ENV) ct-ng $(CT_NG_MAKEVARS) $(subst ct-ng_,,$@)
 	@if cmp -s "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; then \
@@ -126,8 +142,9 @@ ct-ng_oldconfig ct-ng_menuconfig: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-
 		cp "$(CT_NG_DIR)/.config" "$(CT_NG_CONFIG)"; \
 	fi
 
-ct-ng:
-	@cd $(CT_NG_DIR) && ct-ng $(filter-out $@,$(MAKECMDGOALS))
+ct-ng: $(STATEDIR)/ct-ng.extract $(STATEDIR)/host-ct-ng.install
+	cd $(CT_NG_DIR) && $(CT_NG_PATH) $(CT_NG_ENV) ct-ng $(CT_NG_MAKEVARS) $(filter-out $@,$(MAKECMDGOALS))
+	@$(call ct-ng_update_config)
 
 # supress "no rule to make taret" errors
 ifeq ($(filter ct-ng,$(MAKECMDGOALS)),ct-ng)
