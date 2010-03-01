@@ -54,6 +54,8 @@ ct-ng_update_config = \
 		fi \
 	elif [ "$(CT_NG_DIR)/.config" -nt "$(CT_NG_CONFIG)" ]; then \
 		if [ -e "$(CT_NG_DIR)/.config" ]; then \
+			sed -i "s|^\(CT_PREFIX_DIR=\)\(.*\)$$|\1\"/opt/\$${CT_CC_PKGVERSION}/\$${CT_TARGET}/\$${CT_CC}-\$${CT_CC_VERSION}-\$${CT_LIBC}-\$${CT_LIBC_VERSION}-binutils-\$${CT_BINUTILS_VERSION}-kernel-\$${CT_KERNEL_VERSION}-sanitized\"|" $(CT_NG_DIR)/.config ;\
+			sed -i "s|^\(CT_LOCAL_TARBALLS_DIR=\)\(.*\)$$|\1\"$(PTXDIST_SRCDIR)\"|" $(CT_NG_DIR)/.config ; \
 			install -m 644 $(CT_NG_DIR)/.config $(CT_NG_CONFIG); \
 			echo; \
 			echo "**********************************************"; \
