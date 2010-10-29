@@ -13,6 +13,7 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_CT_NG) += host-ct-ng
 
-HOST_CT_NG_CONF_TOOL	:= autoconf
+HOST_CT_NG_CONF_TOOL := autoconf
+HOST_CT_NG_DEVPKG := NO
 
 # vim: syntax=make
